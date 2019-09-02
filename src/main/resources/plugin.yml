@@ -1,0 +1,45 @@
+name: AdoptionMaster
+main: me.Silverwolfg11.AdoptionMaster.AdoptionMaster
+version: 1.1
+api-version: 1.14
+depend: [MarriageMaster,JSONMessage]
+description: An extension for marriage master where you can adopt children!
+commands:
+  adopt:
+    description: Adopt a child
+    permission: adoption.adopt
+  family:
+    description: Check who your parents, siblings, and children are!
+    permission: adoption.family
+  disown:
+    description: Disown a child
+    permission: adoption.disown
+  runaway:
+    description: Run away from your parents
+    permission: adoption.runaway
+  adoptreload:
+    description: Reload adoption data!
+    permission: adoption.reload
+permissions:
+  adoption.default:
+    description: All default permissions for AdoptionMaster
+    children:
+      adoption.adopt: true
+      adoption.family: true
+      adoption.disown: true
+      adoption.runaway: true
+  adoption.*:
+    description: All permissions for AdoptionMaster
+    children:
+      adoption.default: true
+      adoption.load: true
+  adoption.adopt:
+    description: Adopt a child
+  adoption.family:
+    description: Check who your parents, siblings, and children are!
+  adoption.disown:
+    description: Disown a child
+  adoption.runaway:
+    description: Run away from your parents!
+  adoption.load:
+    description: Load adoptions data!
