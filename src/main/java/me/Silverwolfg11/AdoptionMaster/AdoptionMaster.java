@@ -51,11 +51,6 @@ public class AdoptionMaster extends JavaPlugin {
             Bukkit.getLogger().log(Level.SEVERE, "Missing MarriageMaster dependency! Disabling plugin...");
             setEnabled(false);
         }
-
-        if (Bukkit.getPluginManager().getPlugin("JSONMessage") == null) {
-            Bukkit.getLogger().log(Level.SEVERE, "Missing JSONMessage dependency! Disabling plugin...");
-            setEnabled(false);
-        }
     }
 
 

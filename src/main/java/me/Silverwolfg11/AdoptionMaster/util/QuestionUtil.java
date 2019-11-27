@@ -1,7 +1,9 @@
 package me.Silverwolfg11.AdoptionMaster.util;
 
-import me.Silverwolfg11.JSONMessage.JSONMessage;
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -11,28 +13,6 @@ public class QuestionUtil {
 
     private static HashMap<UUID, Runnable[]> questionMap = new HashMap<>();
 
-
-    /* public void playerConsent(Player target, String q, Runnable accept, Runnable deny) {
-
-
-
-        List<Option> options = new ArrayList<>();
-
-        options.add(new Option("yes", accept));
-        options.add(new Option("no", deny));
-
-        LinkedQuestion question = new LinkedQuestion(QuestionManager.getNextQuestionId(), Collections.singletonList(target.getName()), q, options);
-
-        try {
-            questioner.getQuestionManager().appendLinkedQuestion(question);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        for (String line : questioner.formatQuestion(question, "Adoption"))
-            target.sendMessage(line);
-    } */
-
     public static void playerConsent(Player target, String q, Runnable accept, Runnable deny) {
 
         Runnable[] runnables = new Runnable[2];
@@ -41,16 +21,18 @@ public class QuestionUtil {
 
         questionMap.put(target.getUniqueId(), runnables);
 
-        JSONMessage message = JSONMessage.create();
+        ComponentBuilder builder = new ComponentBuilder("[").color(net.md_5.bungee.api.ChatColor.GRAY);
 
-        message.then("[").color(ChatColor.GRAY).then("Question").color(ChatColor.DARK_AQUA).then("] ").color(ChatColor.GRAY)
-                .then(q).color(ChatColor.AQUA).then("\n")
-                .then("[Yes]").runCommand("/adopt accept").color(ChatColor.GREEN).tooltip(JSONMessage.create("Click to accept!").color(ChatColor.YELLOW))
-                .then(" ")
-                .then("[No]").runCommand("/adopt deny").color(ChatColor.RED).tooltip(JSONMessage.create("Click to deny!").color(ChatColor.DARK_RED));
+        builder.append("Question").color(ChatColor.DARK_AQUA).append("] ").color(ChatColor.GRAY).append(q).color(ChatColor.AQUA).append("\n");
+        builder.append("[Yes]").color(ChatColor.GREEN)
+                .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/adopt accept"))
+                .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click to accept!").color(ChatColor.YELLOW).create()));
+        builder.append(" ");
+        builder.append("[No]").color(ChatColor.RED)
+                .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/adopt deny"))
+                .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click to deny!").color(ChatColor.RED).create()));
 
-
-        message.send(target);
+        target.spigot().sendMessage(builder.create());
     }
 
     public static boolean hasQuestion(Player p) {
