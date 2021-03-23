@@ -5,7 +5,7 @@ An unofficial extension plugin of MarriageMaster that allows you to adopt player
 Requires **Spigot 1.16** (or a fork) and [MarriageMaster](https://github.com/GeorgH93/MarriageMaster) v2.2.14 or higher.
 
 ## Installing
-This plugin can be installed from the releases page.
+This plugin can be installed from the [releases](https://github.com/UrbanMC-Devs/AdoptionMaster/releases/latest) page.
 
 ## Building
 This is a simple maven project and can be built via `mvn clean package`.
